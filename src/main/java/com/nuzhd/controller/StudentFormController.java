@@ -14,9 +14,11 @@ import javax.validation.Valid;
 
 @Controller
 public class StudentFormController {
-
-    @Autowired
     private StudentService studentService;
+
+    public StudentFormController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/new_student")
     public String showAddStudentPage(Model model) {
