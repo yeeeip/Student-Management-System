@@ -3,14 +3,19 @@ package com.nuzhd.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "student")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "first_name",nullable = false)
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
     private String email;
 
     public Student(String firstName, String lastName, String email) {
