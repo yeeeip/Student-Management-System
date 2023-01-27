@@ -5,10 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "student")
 public class Student {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
     private Long id;
+    
     @Column(name = "first_name",nullable = false)
     private String firstName;
 
