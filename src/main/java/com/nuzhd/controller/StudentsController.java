@@ -22,66 +22,75 @@ public class StudentsController {
     }
 
     @GetMapping
-    public String getStudents(Model model) {
+    public String getStudents(Model model, HttpServletRequest request) {
+
         model.addAttribute("students", studentService.getAll());
+        model.addAttribute("baseUrl", request.getRequestURI());
+
         return "students";
     }
 
     @GetMapping("/new")
-    public String showAddStudentPage(Model model) {
+    public String showAddStudentPage(Model model, HttpServletRequest request) {
+
         model.addAttribute("student", new Student());
+        model.addAttribute("baseUrl", request.getRequestURI());
+
         return "new_student";
     }
 
     @PostMapping("/new")
     public String addStudent(@Valid Student student, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
-            return "redirect:/new_student?error";
+            return "redirect:/api/v1/students/new?error";
         }
 
         studentService.save(student);
-        return "redirect:?added";
+        return "redirect:/api/v1/students?added";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateStudentPage(@PathVariable("id") Long id, Model model) {
-        Student studentToEdit = studentService.getById(id);
+    @GetMapping("/{studentId}/update")
+    public String showUpdateStudentPage(@PathVariable("studentId") Long studentId, Model model, HttpServletRequest request) {
+        Student studentToEdit = studentService.getById(studentId);
 
         if (studentToEdit == null) {
             return "redirect:/?not_found";
         }
 
         model.addAttribute("student", studentToEdit);
+        model.addAttribute("baseUrl", request.getRequestURI());
+
         return "update_student";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateStudent(@PathVariable("id") Long id, @Valid Student editedStudent, BindingResult bindingResult) {
+    @PostMapping("/{studentId}/update")
+    public String updateStudent(@PathVariable("studentId") Long studentId, @Valid Student editedStudent, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/update/" + id + "?error";
+            return "redirect:/update/" + studentId + "?error";
         }
 
-        Student currentStudent = studentService.getById(id);
+        Student currentStudent = studentService.getById(studentId);
 
         currentStudent.setFirstName(editedStudent.getFirstName());
         currentStudent.setLastName(editedStudent.getLastName());
         currentStudent.setEmail(editedStudent.getEmail());
         studentService.save(currentStudent);
-        return "redirect:/?updated";
+        return "redirect:/api/v1/students?updated";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long id, HttpServletRequest request) {
+    @GetMapping("/{studentId}/delete")
+    public String deleteStudent(@PathVariable("studentId") Long studentId, HttpServletRequest request) {
 
-        Student studentToDelete = studentService.getById(id);
+        Student studentToDelete = studentService.getById(studentId);
 
         if (studentToDelete == null) {
-            return "redirect:" + request.getRequestURI() + "/?not_found";
+            return "redirect:/api/v1/students?not_found";
         }
 
         studentService.delete(studentToDelete);
-        return "redirect:" + request.getRequestURI() + "/?deleted";
+        return "redirect:/api/v1/students?deleted";
 
     }
 }
