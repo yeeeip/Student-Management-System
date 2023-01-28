@@ -32,7 +32,7 @@
 		<div class="col-lg-6 col-md-6 container justify-content-center card">
 			<h1 class="text-center">Update Student</h1>
 			<div class="card-body">
-				<form th:action="@{/update/{id}(id=${student.id})}" th:object="${student}" method="post">
+				<form th:action="@{|${#ctx.springRequestContext.requestUri}/update/{id}(id=${student.id})|}" th:object="${student}" method="post">
 					<div class="form-group">
 						<label>First Name</label>
 						<input type="text" th:field="*{firstName}" class="form-control">

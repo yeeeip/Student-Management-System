@@ -1,17 +1,16 @@
 package com.nuzhd.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "student")
 public class Student {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
+    @Column(name = "student_id", nullable = false)
     private Long id;
-    
-    @Column(name = "first_name",nullable = false)
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name")
