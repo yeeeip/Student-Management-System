@@ -13,12 +13,15 @@ public class Student {
     private Long id;
 
     @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "First name shouldn't be blank!")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email shouldn't be blank!")
     private String email;
 
     public Student(String firstName, String lastName, String email) {

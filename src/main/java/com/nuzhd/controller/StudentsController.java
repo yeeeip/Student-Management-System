@@ -4,6 +4,7 @@ import com.nuzhd.model.Student;
 import com.nuzhd.service.StudentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/students")
@@ -40,10 +43,17 @@ public class StudentsController {
     }
 
     @PostMapping("/new")
-    public String addStudent(@Valid Student student, BindingResult bindingResult) {
+    public String addStudent(@Valid Student student, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/api/v1/students/new?error";
+            List<String> errors = bindingResult.getFieldErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+
+            model.addAttribute("errors", errors);
+
+            return "new_student";
         }
 
         studentService.save(student);
@@ -55,7 +65,7 @@ public class StudentsController {
         Student studentToEdit = studentService.getById(studentId);
 
         if (studentToEdit == null) {
-            return "redirect:/?not_found";
+            return "redirect:/api/v1/students?not_found";
         }
 
         model.addAttribute("student", studentToEdit);
@@ -65,10 +75,18 @@ public class StudentsController {
     }
 
     @PostMapping("/{studentId}/update")
-    public String updateStudent(@PathVariable("studentId") Long studentId, @Valid Student editedStudent, BindingResult bindingResult) {
+    public String updateStudent(@PathVariable("studentId") Long studentId, @Valid Student editedStudent, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/update/" + studentId + "?error";
+
+            List<String> errors = bindingResult.getFieldErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+
+            model.addAttribute("errors", errors);
+
+            return "update_student";
         }
 
         Student currentStudent = studentService.getById(studentId);
@@ -81,7 +99,7 @@ public class StudentsController {
     }
 
     @GetMapping("/{studentId}/delete")
-    public String deleteStudent(@PathVariable("studentId") Long studentId, HttpServletRequest request) {
+    public String deleteStudent(@PathVariable("studentId") Long studentId) {
 
         Student studentToDelete = studentService.getById(studentId);
 
