@@ -3,20 +3,20 @@
 # Requirements: 
 <ul>
   <li>Java 17 (or higher): Download <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">HERE</a></li>
-  <li>PostgreSQL 15.1: Download <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">HERE</a></li>
+  <li>PostgresSQL 15.1: Download <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">HERE</a></li>
   <li>Apache Maven 3.3+: Download <a href="https://maven.apache.org/download.cgi">HERE</a></li>
   <li>JAVA_HOME variable: <a href="https://javatutorial.net/set-java-home-windows-10/">How to set JAVA_HOME</a></li>
   <li>MAVEN_HOME variable: <a href="https://maven.apache.org/download.cgi">How to set MAVEN_HOME</a></li>
 </ul> 
 
 # Step 1 (Clone project)
-Clone this project in any directory of your computer, e.g in your Desktop.
+Clone this project in any directory of your computer, e.g. in your Desktop.
 
 Open cmd in the necessary directory and type following command: <b>git clone https://github.com/yeeeip/Student-Management-System.git</b>
 
 Folder named Student-Management-System should appear in your directory
  
-# Step 2 (Enusre everything is OK)
+# Step 2 (Ensure everything is OK)
 We need to ensure that your JAVA_HOME and MAVEN_HOME variables are set correctly, so open cmd and type: <b>java -version</b>
 
 ![2023-01-31_12-55-47](https://user-images.githubusercontent.com/81825828/215714215-2cc6645a-b417-4fa8-95c2-eba5fe0c8096.png)
@@ -30,7 +30,7 @@ Now, type <b>mvn --version</b> in cmd
 Ensure that your maven version is 3.3+ and that Maven uses java 17 or higher
 
 # Step 3 (Define application.yaml)
-This app uses PostgreSQL as a data storage, so we need to provide our app an information it will use to connect to our database
+This app uses PostgresSQL as a data storage, so we need to provide our app an information it will use to connect to our database
 
 We will use the default user <b>postgres</b> to connect to our database. You also need to create the database for the application. 
 
@@ -42,7 +42,7 @@ Open this file, and fill it with the following:
 
 ![2023-01-31_13-58-59](https://user-images.githubusercontent.com/81825828/215728825-c9f8127d-df3d-4343-badb-41e2bb52db3a.png)
 
-<h3>Don't forget to replace your_password with your PostgreSQL password</h3>
+<h3>Don't forget to replace your_password with your PostgresSQL password</h3>
 
 # Step 4 (Build JAR file with Maven)
 Open cmd in the project directory and type <b>mvn clean install</b>
