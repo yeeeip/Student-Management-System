@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class StudentController {
     private StudentService studentService;
-
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
     @GetMapping("/")
     public String getStudents(Model model) {
         model.addAttribute("students", studentService.getAll());
         return "students";
     }
-
 }

@@ -15,7 +15,6 @@ import javax.validation.Valid;
 @Controller
 public class StudentFormController {
     private StudentService studentService;
-
     public StudentFormController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -25,7 +24,6 @@ public class StudentFormController {
         model.addAttribute("student", new Student());
         return "new_student";
     }
-
     @PostMapping("/new_student")
     public String addStudent(@Valid Student student, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -35,7 +33,6 @@ public class StudentFormController {
         studentService.save(student);
         return "redirect:?added";
     }
-
     @GetMapping("/update/{id}")
     public String showUpdateStudentPage(@PathVariable("id") Long id, Model model) {
         Student studentToEdit = studentService.getById(id);
@@ -63,7 +60,6 @@ public class StudentFormController {
         studentService.save(currentStudent);
         return "redirect:/?updated";
     }
-
     @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable("id") Long id) {
 
@@ -75,6 +71,5 @@ public class StudentFormController {
 
         studentService.delete(studentToDelete);
         return "redirect:/?deleted";
-
     }
 }
