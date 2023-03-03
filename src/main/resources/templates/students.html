@@ -48,7 +48,7 @@
 
 	<div class="row">
 		<div class="col-lg-3">
-			<a th:href="@{/new_student}" class="btn btn-primary mb-3">Add Student</a>
+			<a th:href="@{|${baseUrl}/new|}" class="btn btn-primary mb-3">Add Student</a>
 		</div>
 	</div>
 	<table class="table table-striped table-bordered">
@@ -68,8 +68,8 @@
 			<td th:text="${student.email}"></td>
 			<td>
 				<div class="btn-group w-100">
-					<a class="btn btn-primary" th:href="@{/update/{id}(id=${student.id})}">Edit</a>
-					<a class="btn btn-danger" th:href="@{/delete/{id}(id=${student.id})}">Delete</a>
+					<a class="btn btn-primary" th:href="@{{baseUrl}/{id}/update(id=${student.id},baseUrl=${baseUrl})}">Edit</a>
+					<a class="btn btn-danger" th:href="@{{baseUrl}/{id}/delete(id=${student.id},baseUrl=${baseUrl})}">Delete</a>
 				</div>
 			</td>
 		</tr>

@@ -1,15 +1,27 @@
 package com.nuzhd.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id", nullable = false)
     private Long id;
-    @Column(nullable = false)
+
+    @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "First name shouldn't be blank!")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email shouldn't be blank!")
     private String email;
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;

@@ -28,11 +28,16 @@
 <br>
 
 <div class="container">
+
+	<div th:if="${errors}" class="alert alert-danger text-center">
+		<p th:each="err : ${errors}" th:text="${err}"></p>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-6 col-md-6 container justify-content-center card">
 			<h1 class="text-center">Update Student</h1>
 			<div class="card-body">
-				<form th:action="@{/update/{id}(id=${student.id})}" th:object="${student}" method="post">
+				<form th:action="@{{baseUrl}(baseUrl=${baseUrl})}" th:object="${student}" method="post">
 					<div class="form-group">
 						<label>First Name</label>
 						<input type="text" th:field="*{firstName}" class="form-control">
