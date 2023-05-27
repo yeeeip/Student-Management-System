@@ -1,4 +1,4 @@
-<h1>How to build this project?</h1>
+<h1>How to build this project</h1>
 
 # Requirements: 
 <ul>
